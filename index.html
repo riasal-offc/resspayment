@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: url('https://img1.pixhost.to/images/6832/616334411_imgtmp.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .payment-options {
+            padding: 30px;
+        }
+        
+        .payment-method {
+            margin-bottom: 30px;
+            background: rgba(249, 249, 249, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(238, 238, 238, 0.5);
+            backdrop-filter: blur(3px);
+        }
+        
+        .payment-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(249, 249, 249, 0.95);
+        }
+        
+        .method-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .qris-icon {
+            background: linear-gradient(135deg, rgba(0, 176, 155, 0.9) 0%, rgba(150, 201, 61, 0.9) 100%);
+        }
+        
+        .dana-icon {
+            background: linear-gradient(135deg, rgba(17, 134, 254, 0.9) 0%, rgba(58, 192, 255, 0.9) 100%);
+        }
+        
+        .gopay-icon {
+            background: linear-gradient(135deg, rgba(0, 166, 79, 0.9) 0%, rgba(0, 209, 102, 0.9) 100%);
+        }
+        
+        .ovo-icon {
+            background: linear-gradient(135deg, rgba(76, 43, 135, 0.9) 0%, rgba(123, 77, 255, 0.9) 100%);
+        }
+        
+        .method-icon img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+        
+        .method-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .method-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .qris-code {
+            width: 220px;
+            height: 220px;
+            border: 1px solid rgba(221, 221, 221, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        
+        .qris-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .account-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .number-display {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(238, 238, 238, 0.7);
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+        
+        .proof-text {
+            color: #ff4757;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .number-display::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .number-display:hover::after {
+            left: 100%;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .copy-btn i {
+            margin-right: 8px;
+        }
+        
+        .instructions {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(245, 245, 245, 0.8);
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid rgba(238, 238, 238, 0.5);
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .payment-options {
+                padding: 20px;
+            }
+            
+            .method-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .method-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Payment Options</h1>
+            <p>Choose your preferred payment method</p>
+        </div>
+        
+        <div class="payment-options">
+            <!-- QRIS Payment -->
+            <div class="payment-method">
+                <div class="method-header">
+                    <div class="method-icon qris-icon">
+                        <i class="fas fa-qrcode" style="color: white; font-size: 24px;"></i>
+                    </div>
+                    <div class="method-title">QRIS Payment</div>
+                </div>
+                <div class="method-content">
+                    <div class="qris-code">
+                        <img src="https://img1.pixhost.to/images/6832/616333184_imgtmp.jpg" alt="QRIS Code">
+                    </div>
+                    <div class="instructions">
+                        Scan this QR code using your mobile banking or e-wallet app to complete the payment
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DANA Payment -->
+            <div class="payment-method">
+                <div class="method-header">
+                    <div class="method-icon dana-icon">
+                        <i class="fas fa-wallet" style="color: white; font-size: 24px;"></i>
+                    </div>
+                    <div class="method-title">DANA Payment</div>
+                </div>
+                <div class="method-content">
+                    <div class="account-name">IIP MUSRIFAK</div>
+                    <div class="number-display" id="dana-number">
+                        0882007933200
+                    </div>
+                    <div class="proof-text">SS BUKTI TF</div>
+                    <button class="copy-btn" onclick="copyToClipboard('dana-number')">
+                        <i class="fas fa-copy"></i> Copy Number
+                    </button>
+                    <div class="instructions">
+                        Send payment to the DANA number above. Please include your order number as payment note.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GoPay Payment -->
+            <div class="payment-method">
+                <div class="method-header">
+                    <div class="method-icon gopay-icon">
+                        <i class="fas fa-money-bill-wave" style="color: white; font-size: 24px;"></i>
+                    </div>
+                    <div class="method-title">GoPay Payment</div>
+                </div>
+                <div class="method-content">
+                    <div class="number-display" id="gopay-number">
+                        0882007933200
+                    </div>
+                    <button class="copy-btn" onclick="copyToClipboard('gopay-number')">
+                        <i class="fas fa-copy"></i> Copy Number
+                    </button>
+                    <div class="instructions">
+                        Send payment to the GoPay number above. Please include your order number as payment note.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OVO Payment -->
+            <div class="payment-method">
+                <div class="method-header">
+                    <div class="method-icon ovo-icon">
+                        <i class="fas fa-mobile-alt" style="color: white; font-size: 24px;"></i>
+                    </div>
+                    <div class="method-title">OVO Payment</div>
+                </div>
+                <div class="method-content">
+                    <div class="number-display" id="ovo-number">
+                        0882007933200
+                    </div>
+                    <button class="copy-btn" onclick="copyToClipboard('ovo-number')">
+                        <i class="fas fa-copy"></i> Copy Number
+                    </button>
+                    <div class="instructions">
+                        Send payment to the OVO number above. Please include your order number as payment note.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            &copy; 2023 Payment Gateway. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const textToCopy = element.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Change button text temporarily
+                let button = element.nextElementSibling;
+                if (button.classList.contains('proof-text')) {
+                    button = button.nextElementSibling;
+                }
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                // Revert after 2 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
